@@ -2,7 +2,7 @@
 
 Depending on the type of application you are building, you may want to utilize a different authentication strategy than basic email and password forms. This decision can be for the sake of security, UX, as well as a myriad of other reasons. That said, it's important that you choose a tech-stack that gives you the flexibility to use whichever authentication strategy you decide on.
 
-Given that the 8base API accepts ID Token (JWTs) issued by any OpenID compliant auth provider, you have a ton of flexibility how you'd like to impliment your user authentication strategy. As long as the chosen auth provider is configured in 8base using an authentication profile, the 8base API will be able to publically verify incoming tokens and securely validate incoming requests.
+Given that the 8base API accepts ID Tokens (JWT) issued by any OpenID compliant auth provider, you have a ton of flexibility how you'd like to implement your user authentication strategy. As long as the chosen auth provider is configured in 8base using an authentication profile, the 8base API will be able to publicly verify incoming tokens and securely validate incoming requests.
 
 In this tutorial, we're going to demonstrate a strategy for enabling One-time Passcode (OTP) authentication using [Auth0](https://auth0.com) to work with an 8base workspace API.
 
@@ -26,7 +26,7 @@ Regardless of the type of application you are building, make sure that you choos
 
 Once created, navigate to the *Settings* tab of your application and scroll all the way to the bottom of the page till you find the *Show Advanced Settings* button. Open it and in the *Grant Types* tab make sure that Passwordless OTP is checked, and save your changes if you're updating it!
 
-Next, navigate to the *Connections* sections of the left menu and select *Passwordless*. Go ahead and enable "Email". In the form that pops up, you can customize the outgoing email; leave it as the default for now. However, make sure that Email OTP is enabled for your application in the *Applications* tab. If not, you'll recieve a client unauthorized error!
+Next, navigate to the *Connections* sections of the left menu and select *Passwordless*. Go ahead and enable "Email". In the form that pops up, you can customize the outgoing email; leave it as the default for now. However, make sure that Email OTP is enabled for your application in the *Applications* tab. If not, you'll receive a client unauthorized error!
 
 ![Enabling Email OTP for auth0 application](./.assets/1-auth0-connections.png)
 
@@ -114,7 +114,7 @@ export default {
   },
   /**
    * Verify an issued token with the username (email)
-   * and recieve back the auth result.
+   * and receive back the auth result.
    *
    * Endpoint Docs: https://auth0.com/docs/connections/passwordless/reference/relevant-api-endpoints#post-oauth-token
    */
@@ -183,7 +183,7 @@ extend type Mutation {
 
 #### src/resolvers/passwordlessAuthStart/handler.js
 
-The `otpStart` method we delared in our `src/utils/auth0.js` module is going to do most of the work here. However, let's go ahead and import it and make sure that we're correctly accessing our resolver inputs and response objects.
+The `otpStart` method we declared in our `src/utils/auth0.js` module is going to do most of the work here. However, let's go ahead and import it and make sure that we're correctly accessing our resolver inputs and response objects.
 
 ```js
 import auth0 from '../../utils/auth0'
@@ -258,11 +258,11 @@ If the success message was returned `true`, go ahead and check your inbox! You s
 
 ### passwordlessAuthLogin
 
-Let's write the GraphQL schema, a handler function, and mocks for our `passwordlessAuthLogin` reolver.
+Let's write the GraphQL schema, a handler function, and mocks for our `passwordlessAuthLogin` resolver.
 
 #### src/resolvers/passwordlessAuthLogin/schema.graphql
 
-For the login resolver's schema we're going to want to return an auth result. We can simply use the same object as is returned from the `auth0/token` endpoint and nest it in our success response.
+For the login resolvers schema we're going to want to return an auth result. We can simply use the same object as is returned from the `auth0/token` endpoint and nest it in our success response.
 
 ```graphql
 # Auth0 token response object
@@ -391,7 +391,7 @@ $ env $(cat .env.local | xargs) 8base invoke-local passwordlessAuthLogin -m requ
 
 ## Deploying our Passwordless OTP Auth
 
-Since everything is working locally, let's go ahead and deploy our code to the production environment. Once deployed, we'll need to update our `Guest` role so that these functions are publically available! Also, we'll be able to test them live.
+Since everything is working locally, let's go ahead and deploy our code to the production environment. Once deployed, we'll need to update our `Guest` role so that these functions are publicly available! Also, we'll be able to test them live.
 
 Go ahead and deploy the functions.
 ```sh
@@ -488,4 +488,3 @@ mutation {
 I hope that you found this tutorial helpful for setting up Passwordless OTP using Auth0 and 8base! Additionally, I hope that it helped you better understand how user authentication can be handled separately from a application backend with valid ID tokens being used to authenticate API requests. 
 
 If you have any questions or suggestions, please let me know! Thank you.
-
