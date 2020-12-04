@@ -1,0 +1,15 @@
+functions:
+  passwordlessAuthStart:
+    type: resolver
+    handler:
+      code: src/resolvers/passwordlessAuthStart/handler.js
+    schema: src/resolvers/passwordlessAuthStart/schema.graphql
+    description: |
+      Initiates authentication flow by sending email to specified email address.
+  passwordlessAuthLogin:
+    type: resolver
+    handler:
+      code: src/resolvers/passwordlessAuthLogin/handler.js
+    schema: src/resolvers/passwordlessAuthLogin/schema.graphql
+    description: |
+      Completes authentication flow by validating code and returning issued tokens.

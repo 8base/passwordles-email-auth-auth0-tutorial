@@ -1,0 +1,26 @@
+# This file was generated using 8base CLI.
+#
+# To learn more about writing custom GraphQL resolver types, visit
+# the 8base documentation at:
+#
+# https://docs.8base.com/8base-console/custom-functions/resolvers
+#
+ 
+# Auth0 token response object
+type AuthResult {
+  expires_in: Int
+  id_token: String
+  token_type: String
+  access_token: String
+  refresh_token: String
+}
+# Login response object
+type PasswordlessAuthLoginResult {
+  success: Boolean!
+  auth: AuthResult
+}
+
+#  Mutation accepts email and code inputs
+extend type Mutation {
+  passwordlessAuthLogin(email: String!, code: String!): PasswordlessAuthLoginResult
+}
