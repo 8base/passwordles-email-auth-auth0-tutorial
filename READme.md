@@ -434,8 +434,8 @@ Go check your email to obtain the code for testing the Login mutation.
 ```graphql
 mutation {
   passwordlessAuthLogin(
-    email: "sebastian.scholl@8base.com",
-  	code: "449786"
+    email: "<YOUR_EMAIL>",
+  	code: "<SOME_CODE>"
   ) {
     success
     auth {
@@ -447,6 +447,45 @@ mutation {
     }
   }
 }
+```
+
+**Response**
+
+```json
+{
+  "data": {
+    "passwordlessAuthLogin": {
+      "success": true,
+      "auth": {
+        "refresh_token": "some_refresh_token",
+        "access_token": "some_access_token",
+        "expires_in": 86400,
+        "token_type": "Bearer",
+        "id_token": "some.valid.idtoken"
+      }
+    }
+  }
+```
+
+Now that you have a valid ID Token, you can include it as an authorization header's `Bearer` token to authenticate your requests to the GraphQL API! Additionally, if you want to refresh the user's ID token without requiring them to authenticate, you can store the _refresh_token_ and later use it with the `userRefreshToken` mutation.
+
+```graphql
+mutation {
+  userRefreshToken(data: {
+    email: "<USER_EMAIL>"
+    refreshToken: "<ISSUED_REFRESH_TOKEN>"
+    authProfileId: "<YOUR_AUTH_PROFILE_ID>"
+  }) {
+    refreshToken
+    idToken
+  }
+}
 
 ```
+
+## Conclusion
+
+I hope that you found this tutorial helpful for setting up Passwordless OTP using Auth0 and 8base! Additionally, I hope that it helped you better understand how user authentication can be handled separately from a application backend with valid ID tokens being used to authenticate API requests. 
+
+If you have any questions or suggestions, please let me know! Thank you.
 
