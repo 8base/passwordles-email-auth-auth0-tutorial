@@ -394,6 +394,7 @@ $ env $(cat .env.local | xargs) 8base invoke-local passwordlessAuthLogin -m requ
 Since everything is working locally, let's go ahead and deploy our code to the production environment. Once deployed, we'll need to update our `Guest` role so that these functions are publicly available! Also, we'll be able to test them live.
 
 Go ahead and deploy the functions.
+
 ```sh
 $ 8base deploy
 
