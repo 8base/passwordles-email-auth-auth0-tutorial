@@ -466,6 +466,7 @@ mutation {
       }
     }
   }
+}
 ```
 
 Now that you have a valid ID Token, you can include it as an authorization header's `Bearer` token to authenticate your requests to the GraphQL API! Additionally, if you want to refresh the user's ID token without requiring them to authenticate, you can store the _refresh_token_ and later use it with the `userRefreshToken` mutation.
@@ -481,7 +482,6 @@ mutation {
     idToken
   }
 }
-
 ```
 
 ## Conclusion
